@@ -1,7 +1,9 @@
-const Sauce = require('../models/sauce');
+const Sauce = require('../models/Sauce');
 
+// Additions of the various endpoints
 exports.getAllSauces = (req, res, next) => {
-    
+    res.json('Requête reçue !');
+    next();
 };
 
 exports.getOneSauce = (req, res, next) => {
