@@ -5,14 +5,19 @@ const mongoose = require('mongoose');
 const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
+const path = require('path');
+
 const app = express();
 
 //Connecting our API to our database
-mongoose.connect('mongodb+srv://mognal23:LAU12htdp45@cluster0.v4x3lde.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://mognal:HTDP12htdp45@cluster0.lbywk93.mongodb.net/?retryWrites=true&w=majority',
     {useNewUrlParser: true,
      useUnifiedTopology: true})
     .then(() => console.log('Connexion à MongoDB réussi !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+// Ability to access the body of the query
+app.use(express.json());
 
 // Addition of "headers" allowing communication between different port servers
 app.use((req, res, next) => {
@@ -22,9 +27,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Ability to access the body of the query
-app.use(express.json());
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
