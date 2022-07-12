@@ -1,5 +1,6 @@
 //Importing Express and mangoose to link the server to the database.
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 
 const sauceRoutes = require('./routes/sauces');
@@ -19,11 +20,15 @@ mongoose.connect('mongodb+srv://mognal:HTDP12htdp45@cluster0.lbywk93.mongodb.net
 // Ability to access the body of the query
 app.use(express.json());
 
+//Helmet helps us secure our Express applications by defining various HTTP headers
+app.use(helmet());
+
 // Addition of "headers" allowing communication between different port servers
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     next();
 });
 
