@@ -2,6 +2,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
@@ -11,7 +12,7 @@ const path = require('path');
 const app = express();
 
 //Connecting our API to our database
-mongoose.connect('mongodb+srv://mognal:HTDP12htdp45@cluster0.lbywk93.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.SECRET_DB,
     {useNewUrlParser: true,
      useUnifiedTopology: true})
     .then(() => console.log('Connexion à MongoDB réussi !'))

@@ -155,7 +155,7 @@ exports.createLikeStatus = (req, res) => {
             // }
             
         try{
-            if(!sauce.usersLiked.includes(req.body.userId) && req.body.like === 1){ // The "includes" method will check whether the data is present or not in the parameter defined
+            if(!(sauce.usersLiked.includes(req.body.userId)) && req.body.like === 1){ // The "includes" method will check whether the data is present or not in the parameter defined
                 console.log("Adding like !"); 
                 Sauce.updateOne(
                     {_id: req.params.id},
@@ -172,11 +172,11 @@ exports.createLikeStatus = (req, res) => {
                         res.status(400)
                         .json({ error: error})
                     });
+                
                 console.log("Utilisation de like = 1 !");
 
-            }else if(!sauce.usersDisliked.includes(req.body.userId) && req.body.like === -1){
+            }else if(!(sauce.usersDisliked.includes(req.body.userId)) && req.body.like === -1){
                 console.log("the user dislike !");
-            
                 Sauce.updateOne(
                     {_id: req.params.id},
                     {
@@ -192,15 +192,16 @@ exports.createLikeStatus = (req, res) => {
                         res.status(402)
                         .json({error: error})
                     });
+                
                 console.log("Utilisation de dislike = 1!");
 
-            }else if(sauce.usersLiked.includes(req.body.userId) && req.body.like === 0){ //The user cancels his "like" 
+            }else if(sauce.usersLiked.includes(req.body.userId) && req.body.like === 0){ //The user cancels his "like"
                 console.log("canceled like");
                 Sauce.updateOne(
                     {_id: req.params.id},
                     {
                         $inc: {likes: -1},
-                        $pull: {userLiked: req.body.userId} // The operator "$pull" removes the data as a parameter
+                        $pull: {usersLiked: req.body.userId} // The operator "$pull" removes the data as a parameter
                     }
                 )
                     .then(() => {
@@ -211,6 +212,7 @@ exports.createLikeStatus = (req, res) => {
                         res.status(401)
                         .json({ error: error})
                     });
+                
                 console.log("Suppression de like !");
 
             }else if(sauce.usersDisliked.includes(req.body.userId) && req.body.like === 0){
