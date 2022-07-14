@@ -22,11 +22,12 @@ mongoose.connect(process.env.SECRET_DB,
 app.use(express.json());
 
 //Helmet helps us secure our Express applications by defining various HTTP headers
+//Helmet helps us secure our applications against XSS attacks
 app.use(helmet());
 
 // Addition of "headers" allowing communication between different port servers
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');

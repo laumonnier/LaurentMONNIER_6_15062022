@@ -115,45 +115,7 @@ exports.createLikeStatus = (req, res) => {
     console.log(req.body);
     console.log("coucou c'est bien moi");
     Sauce.findOne({_id: req.params.id})
-            .then(sauce => {
-            // if(req.body.like === 1){
-            //     Sauce.updateOne(
-            //         {_id: req.params.id},
-            //         {
-            //             $inc: {likes: 1},
-            //             $push: {userLiked: req.body.userId}
-            //         }
-            //     )
-            // }else if(sauce.usersLiked.includes(req.body.userId)){
-            //     if(req.body.like === 0){
-            //         Sauce.updateOne(
-            //             {_id: req.params.id},
-            //             {
-            //                 $inc: {likes: -1},
-            //                 $pull: {usersLiked: req.body.userId}
-            //             }
-            //         )
-            //     }
-            // }else if(req.body.like === -1){
-            //     Sauce.updateOne(
-            //         {_id: req.params.id},
-            //         {
-            //             $inc: {dislikes: 1},
-            //             $push: {usersDisliked: req.body.userId}
-            //         }
-            //     )
-            // }else if(sauce.usersDisliked.includes(req.body.userId)){
-            //     if(req.body.like === 0){
-            //         Sauce.updateOne(
-            //             {_id: req.params.id},
-            //             {
-            //                 $inc: {dislikes: -1},
-            //                 $pull: {usersDisliked: req.body.userId}
-            //             }
-            //         )
-            //     }
-            // }
-            
+            .then(sauce => {            
         try{
             if(!(sauce.usersLiked.includes(req.body.userId)) && req.body.like === 1){ // The "includes" method will check whether the data is present or not in the parameter defined
                 console.log("Adding like !"); 
