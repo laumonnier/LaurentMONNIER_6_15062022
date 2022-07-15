@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 // Additions of the various endpoints
 exports.signup = (req, res, next) => {
+    console.log("J\'utilise la middleware signup !");
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
@@ -27,6 +28,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+    console.log("J\'utilise la middleware login !");
     User.findOne({email: req.body.email})
         .then (user => {
             if(!user) {

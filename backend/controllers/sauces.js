@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // Additions of the various endpoints
 exports.getAllSauces = (req, res, next) => {
-    console.log("J\'utilise la middleware getAllSauce !")
+    console.log("J\'utilise la middleware getAllSauce !");
     Sauce.find()
         .then((sauces) => {
             res.status(200)
@@ -16,7 +16,7 @@ exports.getAllSauces = (req, res, next) => {
 };
 
 exports.getOneSauce = (req, res, next) => {
-    console.log("J\'utilise la middleware getOneSauce !")
+    console.log("J\'utilise la middleware getOneSauce !");
     Sauce.findOne({
         _id: req.params.id
     })
@@ -31,6 +31,7 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.createSauce = (req, res, next) => {
+    console.log("J\'utilise la middleware createSauce !");
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
     delete sauceObject._userId; //Never trust a user
@@ -56,6 +57,7 @@ exports.createSauce = (req, res, next) => {
 };
 
 exports.modifySauce = (req, res, next) => {
+    console.log("J\'utilise la middleware modifySauce !");
     const sauceObject = req.file ? {
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -85,6 +87,7 @@ exports.modifySauce = (req, res, next) => {
 };
 
 exports.deleteSauce = (req, res, next) => {
+    console.log("J\'utilise la middleware deleteSauce !");
     Sauce.findOne({_id: req.params.id})
         .then(sauce => {
             if(sauce.userId != req.auth.userId){
@@ -112,8 +115,8 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 exports.createLikeStatus = (req, res) => {
+    console.log("J\'utilise la middleware createLikeStatus !");
     console.log(req.body);
-    console.log("coucou c'est bien moi");
     Sauce.findOne({_id: req.params.id})
             .then(sauce => {            
         try{
@@ -151,11 +154,11 @@ exports.createLikeStatus = (req, res) => {
                         .json({message: 'dislikedStatus created !'})
                     })
                     .catch((error) => {
-                        res.status(402)
+                        res.status(400)
                         .json({error: error})
                     });
                 
-                console.log("Utilisation de dislike = 1!");
+                console.log("Utilisation de like = -1!");
 
             }else if(sauce.usersLiked.includes(req.body.userId) && req.body.like === 0){ //The user cancels his "like"
                 console.log("canceled like");
@@ -171,7 +174,7 @@ exports.createLikeStatus = (req, res) => {
                         .json({message: 'likeStatus has been successfully updated !'})
                     })
                     .catch((error) => {
-                        res.status(401)
+                        res.status(400)
                         .json({ error: error})
                     });
                 
@@ -191,18 +194,18 @@ exports.createLikeStatus = (req, res) => {
                         .json({message: 'DislikedStatus has been successfully updated !'})
                     })
                     .catch((error) => {
-                        res.status(403)
+                        res.status(400)
                         .json({error: error })
                     });
                 console.log("Suppression de dislike !");
             }
         }catch(e){
-            console.log('Il y a une erreur lorsque l\'utilisateur veut liker et qu\'il est non présent dans le tableau usersLikes' + 'erreur:' + e)
+            console.log('Il y a une erreur lorsque l\'utilisateur veut liker ou disliker et qu\'il est non présent dans le tableau usersLiked ou usersDisliked' + 'erreur:' + e)
         }
                 
         })
         .catch((error) => {
-            res.status(404)
+            res.status(400)
             .json({ error: error})
         });     
 };
