@@ -1,7 +1,7 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');
 
-// Additions of the various endpoints
+// business logic implementations
 exports.getAllSauces = (req, res, next) => {
     console.log("J\'utilise la middleware getAllSauce !");
     Sauce.find()

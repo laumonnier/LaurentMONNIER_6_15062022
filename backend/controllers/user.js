@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 // Additions of the various endpoints
 exports.signup = (req, res, next) => {
     console.log("J\'utilise la middleware signup !");
-    bcrypt.hash(req.body.password, 10)
+    const salt = bcrypt.genSaltSync(14);
+    bcrypt.hash(req.body.password, salt)
         .then(hash => {
             const user = new User({
                 email: req.body.email,

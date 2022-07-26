@@ -1,10 +1,11 @@
 //Importing Express and mangoose to link the server to the database.
 const express = require('express');
+const mongoose = require('mongoose');
 const helmet = require('helmet');
 const session = require('cookie-session');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
+//router imports
 const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
