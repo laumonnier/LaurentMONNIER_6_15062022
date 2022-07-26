@@ -38,6 +38,7 @@ const errorHandler = error => {
     }
 };
 
+// Allows creation of a server on HTTP protocol
 const server = http.createServer(app);
 
 server.on('error', errorHandler);
@@ -47,4 +48,5 @@ server.on('listening', () => {
     console.log('Listening on ' + bind);
 });
 
+// Listening on port 3000
 server.listen(process.env.PORT || process.env.MY_PORT);

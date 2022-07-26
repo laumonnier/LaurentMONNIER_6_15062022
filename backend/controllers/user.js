@@ -3,6 +3,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 // Additions of the various endpoints
+// business logic for creating a user account
 exports.signup = (req, res, next) => {
     console.log("J\'utilise la middleware signup !");
     const salt = bcrypt.genSaltSync(14);
@@ -28,6 +29,7 @@ exports.signup = (req, res, next) => {
         });
 };
 
+// business logic concerning the login of a user account
 exports.login = (req, res, next) => {
     console.log("J\'utilise la middleware login !");
     User.findOne({email: req.body.email})

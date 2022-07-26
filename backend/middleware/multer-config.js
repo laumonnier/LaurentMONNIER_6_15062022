@@ -1,5 +1,6 @@
 const multer = require('multer');
 
+// Allows to pass files in queries, here it will be image files
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',

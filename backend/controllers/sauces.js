@@ -1,7 +1,7 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');
 
-// business logic implementations
+// business logic implementations concerning all sauces
 exports.getAllSauces = (req, res, next) => {
     console.log("J\'utilise la middleware getAllSauce !");
     Sauce.find()
@@ -15,6 +15,7 @@ exports.getAllSauces = (req, res, next) => {
         });
 };
 
+// business logic regarding the choice of a sauce
 exports.getOneSauce = (req, res, next) => {
     console.log("J\'utilise la middleware getOneSauce !");
     Sauce.findOne({
@@ -30,6 +31,7 @@ exports.getOneSauce = (req, res, next) => {
         });
 };
 
+// business logic concerning the creation of a sauce
 exports.createSauce = (req, res, next) => {
     console.log("J\'utilise la middleware createSauce !");
     const sauceObject = JSON.parse(req.body.sauce);
@@ -56,6 +58,7 @@ exports.createSauce = (req, res, next) => {
         });
 };
 
+// business logic concerning the modification of a sauce
 exports.modifySauce = (req, res, next) => {
     console.log("J\'utilise la middleware modifySauce !");
     const sauceObject = req.file ? {
@@ -86,6 +89,7 @@ exports.modifySauce = (req, res, next) => {
         });
 };
 
+// business logic concerning the removal of a sauce
 exports.deleteSauce = (req, res, next) => {
     console.log("J\'utilise la middleware deleteSauce !");
     Sauce.findOne({_id: req.params.id})
@@ -114,6 +118,7 @@ exports.deleteSauce = (req, res, next) => {
         })
 };
 
+// business logic concerning the creation of a Status Like
 exports.createLikeStatus = (req, res) => {
     console.log("J\'utilise la middleware createLikeStatus !");
     console.log(req.body);

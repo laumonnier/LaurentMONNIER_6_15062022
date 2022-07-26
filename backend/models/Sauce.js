@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Allows to make a model-type of a Sauce in order to respect it afterwards. And allows to face the NoSQL
 const sauceSchema = mongoose.Schema({
     userId: {type: String, required: true},
     name: {type: String, required: true},
